@@ -1,0 +1,77 @@
+name: Despliegue
+
+# Cada merge a main que toque el juego lo publica en S3 + CloudFront.
+# Sin llaves guardadas: GitHub pide credenciales temporales a AWS por OIDC,
+# y el rol solo acepta tokens del entorno "produccion" de este repositorio.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'juego-web/**'
+      - '.github/workflows/despliegue.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: despliegue-produccion
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: produccion
+      url: https://rebusque.inventio.com.co
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: juego-web
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: juego-web/package-lock.json
+
+      - name: Instalar dependencias (sin scripts de instalación)
+        run: npm ci --ignore-scripts
+
+      - name: Compilar
+        run: npm run build
+
+      - name: Credenciales temporales de AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: rebusque-gha-${{ github.run_id }}
+          aws-region: us-east-1
+
+      # Los assets llevan hash en el nombre: caché de un año. El index.html, sin caché.
+      # No se borran assets viejos para no romper a quien tenga la versión anterior abierta.
+      - name: Subir a S3
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          aws s3 sync dist "s3://$S3_BUCKET" --exclude index.html --exclude favicon.svg \
+            --cache-control "public,max-age=31536000,immutable" --only-show-errors
+          aws s3 cp dist/favicon.svg "s3://$S3_BUCKET/favicon.svg" \
+            --cache-control "public,max-age=3600" --content-type image/svg+xml --only-show-errors
+          aws s3 cp dist/index.html "s3://$S3_BUCKET/index.html" \
+            --cache-control "no-cache" --content-type "text/html; charset=utf-8" --only-show-errors
+
+      - name: Invalidar el index en CloudFront
+        env:
+          DIST_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths /index.html --query Invalidation.Id --output text
