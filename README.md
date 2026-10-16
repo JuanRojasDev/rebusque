@@ -12,7 +12,7 @@
 
 ## Juega la demo
 
-**▶ https://d6yg5ju3l45gz.cloudfront.net** · funciona en celular y PC, sin instalar nada.
+**▶ https://rebusque.inventio.com.co** · funciona en celular y PC, sin instalar nada.
 
 La demo web (`juego-web/`) es una vista isométrica de una cuadra con ciclo de día, atardecer y noche, lluvia y tráfico con semáforo. El ciclo es reciclar → vender → comer → armar el cambuche → dormir para guardar. Trae editor de personaje y mapa con GPS.
 
@@ -26,7 +26,15 @@ npm ci --ignore-scripts
 npm run dev
 ```
 
-Para publicarla: `npm run build` y luego `bash scripts/deploy-aws.sh` (S3 privado + CloudFront con OAC; ver `04-tecnologia/arquitectura-aws.md`).
+### Flujo de trabajo y despliegue
+
+1. Crea una rama, haz tus cambios y abre un **pull request** hacia `main`.
+2. El workflow **Verificación** (`.github/workflows/verificacion.yml`) instala, audita dependencias, compila y revisa que el build no tenga secretos. Es obligatorio para fusionar.
+3. Al fusionar a `main`, el workflow **Despliegue** (`.github/workflows/despliegue.yml`) publica en S3 + CloudFront.
+
+`main` está protegida: solo cambia por PR y no admite force-push. GitHub entra a AWS por **OIDC**, con credenciales temporales y sin llaves guardadas. El rol solo puede subir al bucket del juego e invalidar su distribución. Dependabot propone actualizaciones semanales de las acciones y dependencias, solo de versiones con al menos dos semanas publicadas.
+
+Despliegue manual de emergencia: `npm run build` y luego `bash scripts/deploy-aws.sh`.
 
 ### Stack
 

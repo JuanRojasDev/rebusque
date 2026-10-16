@@ -1,0 +1,60 @@
+name: Verificación
+
+# Corre en cada pull request hacia main. Es el chequeo obligatorio para fusionar.
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verificacion-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: juego-web
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: juego-web/package-lock.json
+
+      - name: Instalar dependencias (sin scripts de instalación)
+        run: npm ci --ignore-scripts
+
+      - name: Auditar dependencias
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Compilar
+        run: npm run build
+
+      - name: Revisar que el build no tenga secretos ni source maps
+        run: |
+          if grep -rEn 'AKIA[0-9A-Z]{16}|ASIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_' dist; then
+            echo "::error::Posible secreto dentro de dist/"
+            exit 1
+          fi
+          if find dist -name '*.map' | grep -q .; then
+            echo "::error::No se publican source maps"
+            exit 1
+          fi
+
+      - name: Tamaño del build
+        run: |
+          du -sh dist
+          ls -la dist/assets | grep -E '\.(js|css)$'
