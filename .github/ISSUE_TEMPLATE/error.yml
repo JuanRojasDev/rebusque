@@ -1,0 +1,48 @@
+name: Reportar un error
+description: Algo no funciona como debería en el juego
+labels: [error]
+body:
+  - type: textarea
+    id: que-paso
+    attributes:
+      label: ¿Qué pasó?
+      description: Describe el error en una o dos frases.
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: ¿Qué esperabas que pasara?
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Cómo reproducirlo
+      placeholder: |
+        1. Abrí el juego en…
+        2. Toqué…
+        3. Pasó…
+    validations:
+      required: true
+  - type: dropdown
+    id: dispositivo
+    attributes:
+      label: Dispositivo
+      options:
+        - Celular Android
+        - iPhone
+        - PC / portátil
+        - Tablet
+    validations:
+      required: true
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador y versión
+      placeholder: Chrome 140, Safari 19…
+  - type: textarea
+    id: capturas
+    attributes:
+      label: Capturas o video
+      description: Arrástralos aquí si los tienes.
