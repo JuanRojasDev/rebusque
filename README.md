@@ -1,9 +1,5 @@
 # REBUSQUE — Simulador de supervivencia urbana (nombre provisional)
 
-> Juego 3D realista de supervivencia y economía callejera ambientado en una ciudad colombiana.
-> Inspirado en la serie de TikTok "Simulador de habitantes de calle" (@babanamkevalamm, oct. 2026)
-> y en las ideas que propuso su comunidad en 133 comentarios.
-
 **Estado:** Preproducción · **Versión del documento:** 0.1 (2026-10-16)
 **Motor propuesto:** Unreal Engine 5.7+ · **Arte:** Blender + MetaHuman + fotogrametría
 **Nube:** AWS (perfil CLI `Inventio`, región `us-east-1`)
