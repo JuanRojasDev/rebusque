@@ -172,6 +172,14 @@ flowchart LR
 
 Las ideas y los aportes son bienvenidos. Lee [CONTRIBUTING.md](CONTRIBUTING.md) para el flujo de trabajo y las reglas (arte propio, nada copiado de otros juegos, tono respetuoso), y el [código de conducta](CODE_OF_CONDUCT.md). Para proponer algo, abre un [issue](https://github.com/JuanRojasDev/rebusque/issues/new/choose).
 
+## Colaboradores
+
+Rebusque lo construye la comunidad ❤️: gracias a todas las personas que han aportado. La lista completa está en [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+<a href="https://github.com/JuanRojasDev/rebusque/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JuanRojasDev/rebusque&columns=12" alt="Colaboradores de Rebusque">
+</a>
+
 ## Seguridad
 
 Si encuentras una vulnerabilidad, no abras un issue público: repórtala en privado como explica [SECURITY.md](SECURITY.md).
