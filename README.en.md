@@ -163,6 +163,14 @@ The design documents are in Spanish.
 
 Ideas and contributions are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) (in Spanish) for the workflow and the rules: original art only, nothing copied from other games, a respectful tone. Please follow the [code of conduct](CODE_OF_CONDUCT.md). To suggest something, open an [issue](https://github.com/JuanRojasDev/rebusque/issues/new/choose).
 
+## Contributors
+
+Rebusque is built by the community ❤️: thank you to everyone who has contributed. The full list is in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+<a href="https://github.com/JuanRojasDev/rebusque/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=JuanRojasDev/rebusque&columns=12" alt="Rebusque contributors">
+</a>
+
 ## Security
 
 If you find a vulnerability, do not open a public issue; report it privately as described in [SECURITY.md](SECURITY.md).
