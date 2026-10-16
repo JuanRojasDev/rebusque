@@ -1,0 +1,29 @@
+# Dependencias y builds
+node_modules/
+dist/
+
+# Estado local de despliegue (IDs de AWS) y variables de entorno
+.deploy.env
+.env
+.env.*
+.cf-*.json
+.pol-*.json
+
+# Contenido de terceros: no se publica
+02-investigacion/transcripciones-privadas/
+02-investigacion/comentarios.csv
+entregas/
+
+# Herramientas de diseño: capturas y mocks locales
+.impeccable/review/
+.impeccable/mocks/
+juego-web/.impeccable/review/
+juego-web/.impeccable/mocks/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+.claude/

@@ -1,0 +1,70 @@
+﻿ID,Area,Tarea,Prioridad,Responsable,Estado,Terminado cuando
+D-01,Decisiones del equipo (antes de producir),Confirmar nombre definitivo y buscar marca en la SIC,P0,,Pendiente,Nombre libre y registrado o en trámite
+D-02,Decisiones del equipo (antes de producir),Decidir: proyecto propio vs. colaborar con el creador original,P0,,Pendiente,Decisión escrita en `06-legal-y-publicacion/`
+D-03,Decisiones del equipo (antes de producir),Aprobar el motor (ADR-0001: UE5),P0,,Pendiente,"ADR en estado ""Aceptado"""
+D-04,Decisiones del equipo (antes de producir),"Definir equipo y roles (programación, arte 3D, diseño, audio)",P0,,Pendiente,Tabla de roles con personas
+D-05,Decisiones del equipo (antes de producir),Definir tope de presupuesto mensual (AWS y herramientas),P0,,Pendiente,Cifra aprobada
+D-06,Decisiones del equipo (antes de producir),Validar el tono con una organización local,P1,,Pendiente,Reunión hecha y notas guardadas
+E-01,Entorno y herramientas,Instalar Blender 4.5 LTS o 5.x,P0,,Pendiente,Abre y exporta FBX
+E-02,Entorno y herramientas,Instalar Epic Games Launcher y UE 5.7+,P0,,Pendiente,Proyecto C++ vacío compila
+E-03,Entorno y herramientas,Instalar Visual Studio 2022 (cargas de C++ y juegos) o Rider,P0,,Pendiente,Depura el proyecto
+E-04,Entorno y herramientas,Crear el repositorio con Git LFS y el `.gitattributes` de UE,P0,,Pendiente,Primer push con un .uasset
+E-05,Entorno y herramientas,"Activar los plugins: MetaHuman, Mutable, PCG, Send to Unreal",P0,,Pendiente,Plugins cargan sin error
+E-06,Entorno y herramientas,Instalar RealityScan (celular o PC) para fotogrametría,P1,,Pendiente,Primer escaneo importado
+E-07,Entorno y herramientas,Evaluar una GPU con 12–16 GB de VRAM,P1,,Pendiente,Decisión de compra
+A-01,AWS (perfil `Inventio`),Activar MFA y revisar los permisos del usuario IAM,P0,,Pendiente,MFA activo y política de mínimo privilegio
+A-02,AWS (perfil `Inventio`),Crear alertas de AWS Budgets (50/80/100 %),P0,,Pendiente,Alerta de prueba recibida
+A-03,AWS (perfil `Inventio`),Migrar el perfil a IAM Identity Center (SSO),P1,,Pendiente,`aws sso login --profile Inventio` funciona
+A-04,AWS (perfil `Inventio`),Hacer bootstrap de CDK en `us-east-1`,P0,,Pendiente,Stack CDKToolkit creado
+A-05,AWS (perfil `Inventio`),"Crear el stack de la API de guardado (Cognito, API Gateway, Lambda, DynamoDB)",P0,,Pendiente,El cliente guarda y carga el cambuche en la nube
+A-06,AWS (perfil `Inventio`),Crear el stack de telemetría (Firehose → S3 → Athena),P1,,Pendiente,Consulta de muertes por zona funciona
+A-07,AWS (perfil `Inventio`),Crear el stack de contenido (S3 + CloudFront) para configuración remota,P1,,Pendiente,Cambiar un precio sin parchar el cliente
+A-08,AWS (perfil `Inventio`),Hacer un prototipo con flota GameLift Anywhere y servidor dedicado UE5,P2,,Pendiente,Dos clientes en la misma sesión
+A-09,AWS (perfil `Inventio`),Configurar una cola de Deadline Cloud para renders de Blender,P2,,Pendiente,Render de prueba descargado
+A-10,AWS (perfil `Inventio`),Activar CloudTrail y alarmas de CloudWatch,P0,,Pendiente,Trail activo
+R-01,Arte y realismo,"Moodboard y guía de estilo (paleta, luz, suciedad)",P0,,Pendiente,Documento aprobado
+R-02,Arte y realismo,Sesión de fotos de referencia en Cúcuta y Medellín (sin personas identificables),P0,,Pendiente,Más de 300 fotos organizadas
+R-03,Arte y realismo,Blockout de una cuadra para el vertical slice,P0,,Pendiente,Se recorre en el editor
+R-04,Arte y realismo,Escanear 5–10 props urbanos por fotogrametría,P1,,Pendiente,Importados como Nanite
+R-05,Arte y realismo,"Modelar en Blender los props propios: cambuche (kit modular), zorra, barril, bolsas de basura",P0,,Pendiente,Kit modular encaja en la rejilla
+R-06,Arte y realismo,Materiales con capas de suciedad y humedad (Substrate),P0,,Pendiente,Material maestro con parámetros
+R-07,Arte y realismo,Crear 10 MetaHumans base para el catálogo,P0,,Pendiente,10 personajes en el editor
+R-08,Arte y realismo,"Montar el Customizable Object de Mutable (cabeza, cuerpo, pelo, 3 capas de ropa)",P1,,Pendiente,El jugador cambia la apariencia en el juego
+R-09,Arte y realismo,"Deterioro visual ligado a higiene, salud y lluvia",P1,,Pendiente,Los cambios se ven al variar las estadísticas
+R-10,Arte y realismo,"Lluvia, charcos y humo con Niagara",P1,,Pendiente,Lluvia afecta superficies y personaje
+R-11,Arte y realismo,Animación de locomoción con Motion Matching,P1,,Pendiente,"Caminar, correr y agacharse fluidos"
+R-12,Arte y realismo,"Presets gráficos de bajo a ultra con DLSS, TSR y FSR",P1,,Pendiente,60 fps en el preset bajo en la GPU de referencia
+G-01,Sistemas de juego,"Necesidades: hambre, sueño, salud, higiene, ánimo",P0,,Pendiente,Las cinco suben y bajan y afectan el juego
+G-02,Sistemas de juego,Ciclo día/noche con efectos en la economía,P0,,Pendiente,La limosna cambia según la hora
+G-03,Sistemas de juego,"Recolección y venta de reciclaje (recicladora, chatarrería)",P0,,Pendiente,"Precio por material, venta funcional"
+G-04,Sistemas de juego,Botín aleatorio en bolsas con tablas de probabilidad,P0,,Pendiente,Tabla configurable por datos
+G-05,Sistemas de juego,Cambuche modular con almacenamiento,P0,,Pendiente,"Construir, guardar y recargar idéntico"
+G-06,Sistemas de juego,Guardado local con versiones y migración,P0,,Pendiente,Un guardado viejo carga en una build nueva
+G-07,Sistemas de juego,Guardado en la nube (A-05),P0,,Pendiente,Cambiar de PC y conservar la partida
+G-08,Sistemas de juego,Lluvia con refugio y cartón,P0,,Pendiente,Mojarse tiene consecuencia
+G-09,Sistemas de juego,Crafteo en la zorra (incluye quemar caucho para sacar cobre),P1,,Pendiente,10 recetas
+G-10,Sistemas de juego,Tienda y economía de compra,P1,,Pendiente,Gastar el dinero en mejoras
+G-11,Sistemas de juego,Semáforo: malabares o tintos con habilidad mejorable,P1,,Pendiente,Minijuego con progresión
+G-12,Sistemas de juego,Cuidar carros,P1,,Pendiente,Ingreso estable por turno
+G-13,Sistemas de juego,Carros con semáforos y robo de retrovisores con tiempo,P1,,Pendiente,"Si fallas, hay penalización"
+G-14,Sistemas de juego,Policía con patrullas aleatorias y decomiso,P1,,Pendiente,Puede quitar el inventario
+G-15,Sistemas de juego,"Sustancias ficticias, abstinencia y calidad según precio",P1,,Pendiente,"Efecto corto, costo largo, revisado contra el tono"
+G-16,Sistemas de juego,Camino de rehabilitación (completar o escapar),P1,,Pendiente,Misión jugable de principio a fin
+G-17,Sistemas de juego,Árbol de talentos de 4 ramas,P1,,Pendiente,Los talentos cambian los números de verdad
+G-18,Sistemas de juego,Inventario por bolsos y peso,P1,,Pendiente,Mochilas amplían la capacidad
+G-19,Sistemas de juego,NPC habitantes con territorio y eventos,P1,,Pendiente,Disputas y robos emergentes
+G-20,Sistemas de juego,Mercado de barril con NPC,P1,,Pendiente,Comprar y vender a otros habitantes
+G-21,Sistemas de juego,Historia de origen elegible,P1,,Pendiente,4 orígenes con diálogos distintos
+G-22,Sistemas de juego,Mascota,P2,,Pendiente,Perro con 3 habilidades
+G-23,Sistemas de juego,Mercado entre jugadores (multijugador),P2,,Pendiente,Comercio validado en el servidor
+G-24,Sistemas de juego,Cámara en primera persona opcional,P2,,Pendiente,Cambio de cámara sin bugs
+Q-01,"Calidad, seguridad y publicación",Pipeline de build automatizada (runner Windows),P1,,Pendiente,Build nocturna empaquetada
+Q-02,"Calidad, seguridad y publicación","Auditoría de release con REA (cadenas, secretos, firma, comparación de builds)",P1,,Pendiente,Informe sin hallazgos críticos
+Q-03,"Calidad, seguridad y publicación",Validación en el servidor de la economía (anti-trampas),P1,,Pendiente,Editar la memoria del cliente no da dinero
+Q-04,"Calidad, seguridad y publicación",Pruebas de rendimiento en hardware de gama media,P1,,Pendiente,Informe de fps por preset
+Q-05,"Calidad, seguridad y publicación","Política de privacidad (Ley 1581 de 2012, habeas data)",P1,,Pendiente,Publicada y enlazada en el juego
+Q-06,"Calidad, seguridad y publicación",Clasificación por edad (cuestionario de contenido de Steam / IARC),P1,,Pendiente,Clasificación 18+ obtenida
+Q-07,"Calidad, seguridad y publicación",Página de Steam (Steam Direct),P1,,Pendiente,"Página ""Próximamente"" con wishlist"
+Q-08,"Calidad, seguridad y publicación","Plan de devlogs en TikTok, YouTube y Steam",P0,,Pendiente,Calendario de 8 semanas
+Q-09,"Calidad, seguridad y publicación",Programa de playtesters y Discord,P1,,Pendiente,50 testers activos
+Q-10,"Calidad, seguridad y publicación",Votación de funciones para la comunidad,P1,,Pendiente,Primera votación cerrada

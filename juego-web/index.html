@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#06080d" />
+    <meta name="description" content="Rebusque: sobrevive una noche lluviosa en la calle. Recicla, vende, come, arma tu cambuche y duerme para guardar." />
+    <title>Rebusque</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <div id="scene" aria-hidden="true"></div>
+
+    <!-- Carga -->
+    <section id="loading" class="screen screen--loading" aria-live="polite">
+      <div class="sign sign--info sign--loading">
+        <span class="sign__title">Cargando la cuadra</span>
+        <span class="loading__bar"><span id="loading-fill"></span></span>
+      </div>
+    </section>
+
+    <!-- Título -->
+    <section id="title" class="screen screen--title" hidden>
+      <header class="title__brand">
+        <div class="sign sign--info sign--brand">
+          <h1 class="brand__name">Rebusque</h1>
+          <p class="brand__tag">Simulador de supervivencia urbana</p>
+        </div>
+      </header>
+
+      <div class="title__panel">
+        <div class="sign sign--info sign--panel profile" id="profile-card">
+          <h2 class="panel__title">Tu personaje</h2>
+          <p class="profile__name" id="profile-name">Sin nombre todavía</p>
+          <p class="profile__meta" id="profile-meta"></p>
+          <button type="button" class="btn btn--ghost btn--small profile__edit" id="btn-customize">Personalizar</button>
+        </div>
+
+        <div class="title__actions">
+          <button type="button" class="btn btn--primary" id="btn-play">
+            <span class="btn__label">Jugar</span>
+          </button>
+          <button type="button" class="btn btn--ghost" id="btn-new" hidden>Nueva partida</button>
+          <label class="quality">
+            <span>Gráficos</span>
+            <select id="quality-select">
+              <option value="bajo">Bajo · celular</option>
+              <option value="alto">Alto</option>
+              <option value="ultra">Ultra</option>
+            </select>
+          </label>
+          <p class="title__hint" id="controls-hint"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HUD -->
+    <section id="hud" class="hud" hidden>
+      <div class="hud__tl">
+        <div class="plate" id="plate-money" aria-label="Dinero">
+          <span class="plate__top">Rebusque · COP</span>
+          <span class="plate__value" id="money">$ 0</span>
+        </div>
+        <ul class="needs" id="needs" aria-label="Necesidades"></ul>
+        <ul class="status" id="status" aria-label="Estado"></ul>
+      </div>
+
+      <div class="hud__tr">
+        <div class="sign sign--info sign--clock">
+          <span class="clock__day" id="day">Día 1</span>
+          <span class="clock__time" id="clock">21:30</span>
+          <span class="clock__weather" id="weather"></span>
+        </div>
+        <div class="sign sign--info sign--objective" id="objective" aria-live="polite">
+          <span class="objective__arrow" id="objective-arrow"></span>
+          <span class="objective__body">
+            <span class="objective__kicker" id="objective-step">Objetivo</span>
+            <span class="objective__text" id="objective-text"></span>
+          </span>
+        </div>
+        <canvas id="minimap" width="168" height="168" aria-label="Mapa de la cuadra"></canvas>
+      </div>
+
+      <div class="prompt" id="prompt" hidden>
+        <span class="prompt__key" id="prompt-key">E</span>
+        <span class="prompt__text" id="prompt-text"></span>
+        <span class="prompt__hold" id="prompt-hold"><span></span></span>
+      </div>
+
+      <div class="toasts" id="toasts" aria-live="polite"></div>
+
+      <div class="hud__br">
+        <button type="button" class="hud-btn" id="btn-map" aria-label="Mapa"></button>
+        <button type="button" class="hud-btn" id="btn-inv" aria-label="Inventario"></button>
+        <button type="button" class="hud-btn" id="btn-pause" aria-label="Pausa"></button>
+      </div>
+
+      <div class="touch" id="touch" hidden>
+        <div class="touch__rot">
+          <button type="button" class="touch-btn touch-btn--rot-l" id="rot-left" aria-label="Girar la vista a la izquierda"></button>
+          <button type="button" class="touch-btn touch-btn--rot-r" id="rot-right" aria-label="Girar la vista a la derecha"></button>
+        </div>
+        <div class="touch__actions">
+          <button type="button" class="touch-btn touch-btn--act" id="touch-act" aria-label="Interactuar"></button>
+          <button type="button" class="touch-btn" id="touch-run" aria-label="Correr"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menú genérico (Recicladora, Tienda, Cambuche, Inventario, Pausa) -->
+    <section id="menu" class="menu" hidden role="dialog" aria-modal="true" aria-labelledby="menu-title">
+      <div class="sign sign--info sign--menu">
+        <header class="menu__head">
+          <span class="menu__icon" id="menu-icon"></span>
+          <div>
+            <h2 class="menu__title" id="menu-title"></h2>
+            <p class="menu__sub" id="menu-sub"></p>
+          </div>
+          <button type="button" class="menu__close" id="menu-close" aria-label="Cerrar"></button>
+        </header>
+        <div class="menu__body" id="menu-body"></div>
+        <footer class="menu__foot" id="menu-foot"></footer>
+      </div>
+    </section>
+
+    <!-- Editor de personaje -->
+    <section id="creator-modal" class="creator" hidden role="dialog" aria-modal="true" aria-labelledby="creator-title">
+      <div class="creator__stage">
+        <canvas id="creator-canvas" aria-label="Vista previa del personaje. Arrastra para girarlo."></canvas>
+        <div class="creator__rot">
+          <button type="button" class="cr-icon-btn" id="creator-rot-l" aria-label="Girar a la izquierda"></button>
+          <span class="creator__hint">Arrastra para girar</span>
+          <button type="button" class="cr-icon-btn" id="creator-rot-r" aria-label="Girar a la derecha"></button>
+        </div>
+      </div>
+      <div class="sign sign--info creator__side">
+        <header class="creator__head">
+          <h2 class="menu__title" id="creator-title">Crea tu personaje</h2>
+          <button type="button" class="menu__close" id="creator-close" aria-label="Cerrar sin guardar"></button>
+        </header>
+        <nav class="creator__tabs" id="creator-tabs" role="tablist" aria-label="Categorías"></nav>
+        <div class="creator__panel" id="creator-panel" role="tabpanel"></div>
+        <footer class="creator__foot">
+          <p class="cr-error" id="creator-error" hidden>Ponle un nombre a tu personaje.</p>
+          <button type="button" class="btn btn--ghost btn--small" id="creator-random">Al azar</button>
+          <button type="button" class="btn btn--primary btn--small" id="creator-done">Listo</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Mapa grande / GPS -->
+    <section id="bigmap" class="bigmap" hidden role="dialog" aria-modal="true" aria-labelledby="bigmap-title">
+      <div class="sign sign--info sign--map">
+        <header class="menu__head">
+          <span class="menu__icon" id="bigmap-icon"></span>
+          <div>
+            <h2 class="menu__title" id="bigmap-title">Mapa de la cuadra</h2>
+            <p class="menu__sub" id="bigmap-sub">Toca un punto o un lugar para marcar el destino.</p>
+          </div>
+          <button type="button" class="menu__close" id="bigmap-close" aria-label="Cerrar mapa"></button>
+        </header>
+        <div class="bigmap__body">
+          <canvas id="bigmap-canvas" aria-label="Mapa de la cuadra. Toca para marcar un destino."></canvas>
+          <div class="bigmap__side">
+            <p class="bigmap__label">Ir a</p>
+            <div class="bigmap__dests" id="bigmap-dests"></div>
+            <div class="bigmap__dest" id="bigmap-dest" hidden>
+              <span class="bigmap__pin" id="bigmap-pin"></span>
+              <span><strong id="bigmap-dest-name"></strong><span id="bigmap-dest-dist"></span></span>
+            </div>
+          </div>
+        </div>
+        <footer class="menu__foot">
+          <button type="button" class="btn btn--ghost btn--small" id="bigmap-clear" disabled>Quitar destino</button>
+          <button type="button" class="btn btn--primary btn--small" id="bigmap-go" disabled>Ir caminando</button>
+        </footer>
+      </div>
+    </section>
+
+    <div id="fade" class="fade" aria-hidden="true"></div>
+    <div id="fx-wet" class="fx-wet" aria-hidden="true"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
