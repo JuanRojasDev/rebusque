@@ -1,0 +1,41 @@
+name: Proponer una idea
+description: Una función, mecánica o mejora para el juego
+labels: [idea]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Las ideas más votadas (👍 en el issue) entran primero a la hoja de ruta.
+        Revisa antes que no exista ya una parecida.
+  - type: textarea
+    id: idea
+    attributes:
+      label: La idea
+      description: ¿Qué te gustaría poder hacer en Rebusque?
+    validations:
+      required: true
+  - type: textarea
+    id: por-que
+    attributes:
+      label: ¿Por qué la haría más divertida o más real?
+  - type: dropdown
+    id: sistema
+    attributes:
+      label: ¿Con qué tiene que ver?
+      options:
+        - Necesidades (hambre, sueño, higiene, salud, vicio)
+        - Economía y rebusque (reciclaje, semáforo, ventas)
+        - Cambuche y construcción
+        - Personaje y personalización
+        - La ciudad (clima, tráfico, policía, otros habitantes)
+        - Controles e interfaz
+        - Otro
+    validations:
+      required: true
+  - type: checkboxes
+    id: tono
+    attributes:
+      label: Tono
+      options:
+        - label: La idea no se burla de las personas que viven en la calle
+          required: true

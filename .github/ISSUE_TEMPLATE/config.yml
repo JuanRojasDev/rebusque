@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Reportar una vulnerabilidad de seguridad
+    url: https://github.com/JuanRojasDev/rebusque/security/advisories/new
+    about: Repórtala en privado, no en un issue público.
+  - name: Jugar Rebusque
+    url: https://rebusque.inventio.com.co
+    about: La versión publicada del juego.
